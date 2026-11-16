@@ -2002,9 +2002,16 @@ function init() {
   bindEvents();
   renderDashboard();
 
-  // Registrar Service Worker si se abre desde https:// o localhost (para instalar en iPhone)
-  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  // Limpiar cualquier Service Worker previo para evitar errores de redirección en iOS Safari / Vercel
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const reg of registrations) {
+        reg.unregister();
+      }
+    }).catch(() => {});
+    if ('caches' in window) {
+      caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
+    }
   }
 }
 
