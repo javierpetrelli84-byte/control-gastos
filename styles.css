@@ -1,0 +1,55 @@
+/* Estilos y animaciones para Control de Gastos e Ingresos */
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Soporte para iPhone (Safe Area Notch y barra inferior + evitar zoom en inputs en iOS) */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tx-row-enter {
+  animation: fadeInSlide 0.2s ease-out forwards;
+}
+
+.donut-segment {
+  transition: stroke-width 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+.donut-segment:hover {
+  stroke-width: 24;
+  opacity: 0.9;
+}
